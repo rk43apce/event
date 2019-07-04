@@ -1,3 +1,20 @@
+<?php
+session_start();
+require_once "../config.php";
+require '../functions.php';
+
+ if(!exists('isLoggedIn')){
+
+    redirect('../index.html');
+ }   
+
+
+ getUser(get('id'), $mysqli);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -14,9 +31,7 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">   
 
 
 </head>
@@ -35,27 +50,53 @@
             
             
             <div class="container">
+
                 <div class="card">
+
                     <div class="card-body">
+                        <h3> Event List </h3>
+                        <div class="line"></div>
                         <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>                       
+                                    <th>Event name</th>
+                                    <th>Event Location</th>
+                                    <th>Event Date</th>
+                                    <th>Event Description</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Tiger</td>
-                                    <td>Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                  
-                                </tr>
+
+                                <?php
+
+
+                                $id = get('id');
+
+                                $sql = "
+                                SELECT *
+                                FROM events 
+                                WHERE user_id =  '$id'"; 
+
+                                if($result = $mysqli->query($sql)){
+                                    if($result->num_rows > 0){
+                                        while($row = $result->fetch_array()){
+                                            ?>
+
+                                                <tr>
+                                                    <td><?php echo $row['event_name']?></td>
+                                                    <td><?php echo $row['event_location']?></td>
+                                                    <td><?php echo $row['event_date']?></td>
+                                                    <td><?php echo $row['event_description']?></td>
+                                              
+                                                </tr>
+
+                                            <?php
+                                        }
+                                    }
+                                }
+
+                                ?>
+                               
                                 </div>
 
                             </tbody>
@@ -91,6 +132,10 @@
     $('#example').DataTable();
 } );
     </script>
+
+
 </body>
+
+
 
 </html>
