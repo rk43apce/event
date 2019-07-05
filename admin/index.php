@@ -5,7 +5,7 @@ require '../functions.php';
 
  if(!exists('isLoggedIn')){
 
-    redirect('../index.html');
+    redirect('../index.php');
  }   
 
 
@@ -54,7 +54,7 @@ require '../functions.php';
                 <div class="card">
 
                     <div class="card-body">
-                        <h3> Event List </h3>
+                        <h3> Event List <div class="float-right"><a href="./add-event.php" class="btn btn-link">+ Add Event</a></div></h3>
                         <div class="line"></div>
                         <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>

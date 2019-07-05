@@ -66,7 +66,9 @@ function validateUser($username, $password, $mysqli)
 function registerUser( $fullName ,$username, $password,  $mysqli)
 {	
 	    # code...
-	 $sql = "INSERT INTO users (name, email, password) VALUES ('$fullName','$fullName',' $password')";
+	 $sql = "INSERT INTO users (name, email, password) VALUES ('$fullName','$username','$password')";
+
+
 
  	if($mysqli->query($sql)){
 		$last_id = $mysqli->insert_id;
@@ -154,22 +156,6 @@ function getEvents( $user_id,  $mysqli)
 		 	
 		 	}
 		 }
-
-	// if($result = $mysqli->query($sql)){
-	//     if($result->num_rows >0){
-
-	//     $row = $result->fetch_array();
-	//       return  $row;
-
-
-	//     }else{ 
-	//         return false;
-	//     }
-	// } else{           
-	//     return false;
-	// } 
-
-
 }
 
 

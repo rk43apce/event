@@ -50,4 +50,8 @@ if(!isset($_POST) &&  !empty($_POST)){
 if(registerUser($fullname,  $username, $password, $mysqli)){
 
     redirect('admin');
+}else{
+      put('msg', 'Sorry something went wrong please try again');
+
+    redirect('./sign-up.php');
 }
